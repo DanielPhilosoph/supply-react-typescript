@@ -7,6 +7,6 @@ const forwardButtonRef = forwardRef<HTMLButtonElement>((_props, ref) => (
   </Button>
 ));
 
-console.log(forwardButtonRef);
+forwardButtonRef.displayName = "SubmitButton";
 
 export default forwardButtonRef;

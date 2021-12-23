@@ -6,7 +6,7 @@ import WorkerForm from "./core/WorkerForm";
 import React, { useRef } from "react";
 
 function App() {
-  const button = useRef();
+  const button = useRef<HTMLButtonElement>(null);
 
   return (
     <div className="App">

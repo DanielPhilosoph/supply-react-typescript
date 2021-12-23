@@ -1,42 +1,47 @@
-export const validateSupplyItem = (supplyName, fullAmount, currentAmount) => {
+import { ValidationResponse } from "../Interfaces/Interfaces";
+
+export const validateSupplyItem = (
+  supplyName: string,
+  fullAmount: number,
+  currentAmount: number
+): ValidationResponse => {
   if (supplyName && fullAmount && currentAmount) {
-    if (isNaN(supplyName)) {
-      if (supplyName.length > 3) {
-        if (!isNaN(fullAmount) && fullAmount > 0) {
-          if (!isNaN(currentAmount) && currentAmount > 0) {
-            if (currentAmount <= fullAmount) {
-              return { valid: true };
-            } else {
-              return {
-                valid: false,
-                message: "Current amount cant be bigger then full amount",
-              };
-            }
+    if (supplyName.length > 3) {
+      if (!isNaN(fullAmount) && fullAmount > 0) {
+        if (!isNaN(currentAmount) && currentAmount > 0) {
+          if (currentAmount <= fullAmount) {
+            return { valid: true };
           } else {
             return {
               valid: false,
-              message: "Current amount should be bigger then 0",
+              message: "Current amount cant be bigger then full amount",
             };
           }
         } else {
           return {
             valid: false,
-            message: "Full amount should be bigger then 0",
+            message: "Current amount should be bigger then 0",
           };
         }
       } else {
-        return { valid: false, message: "Supply name should be longer" };
+        return {
+          valid: false,
+          message: "Full amount should be bigger then 0",
+        };
       }
     } else {
-      return { valid: false, message: "Supply name must be a string" };
+      return { valid: false, message: "Supply name should be longer" };
     }
   } else {
     return { valid: false, message: "All fields are required" };
   }
 };
 
-export const validateCurrentAmount = (currentAmount, fullAmount) => {
-  if (!isNaN(currentAmount) && currentAmount > 0) {
+export const validateCurrentAmount = (
+  currentAmount: number,
+  fullAmount: number
+): ValidationResponse => {
+  if (!isNaN(currentAmount) && currentAmount >= 0) {
     if (fullAmount >= currentAmount) {
       return { valid: true };
     } else {
@@ -53,15 +58,19 @@ export const validateCurrentAmount = (currentAmount, fullAmount) => {
   }
 };
 
-export const validationWorkerForm = (name, company, date) => {
+export const validationWorkerForm = (
+  name: string,
+  company: string,
+  date: string
+): ValidationResponse => {
   if (name && company && date) {
-    if (isNaN(name)) {
-      if (isNaN(company)) {
+    if (/[a-zA-Z]/.test(name)) {
+      if (/[a-zA-Z]/.test(company)) {
         if (name.length > 2) {
           if (company.length > 2) {
             return { valid: true };
           } else {
-            return { valid: false, message: "Name is to short" };
+            return { valid: false, message: "Company is to short" };
           }
         } else {
           return { valid: false, message: "Name is to short" };

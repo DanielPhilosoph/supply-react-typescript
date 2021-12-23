@@ -3,23 +3,35 @@ import { useRef } from "react";
 import { useDispatch } from "react-redux";
 
 import { validateCurrentAmount } from "../helpers/functions";
+import { SupplyItemInterface } from "../Interfaces/Interfaces";
 
-export default function SupplyTr({ index, supply }) {
-  const currentAmount = useRef<HTMLInputElement>();
+interface Props {
+  index: number;
+  supply: SupplyItemInterface;
+}
+
+function SupplyTr({ index, supply }: Props) {
+  const currentAmount = useRef<HTMLInputElement>(null);
   const dispatch = useDispatch();
 
   const onBlur = () => {
-    const response = validateCurrentAmount(
-      currentAmount.current.value,
-      supply.fullAmount
-    );
-    if (response.valid) {
-      dispatch({
-        type: "EDIT_CURRENT_AMOUNT_SUPPLY_ITEM",
-        payload: { id: supply.id, currentAmount: currentAmount.current.value },
-      });
-    } else {
-      currentAmount.current.value = supply.currentAmount;
+    if (currentAmount.current) {
+      const response = validateCurrentAmount(
+        parseInt(currentAmount.current.value),
+        supply.fullAmount
+      );
+
+      if (response.valid) {
+        dispatch({
+          type: "EDIT_CURRENT_AMOUNT_SUPPLY_ITEM",
+          payload: {
+            id: supply.id,
+            currentAmount: currentAmount.current.value,
+          },
+        });
+      } else {
+        currentAmount.current.value = supply.currentAmount.toString();
+      }
     }
   };
 
@@ -41,3 +53,5 @@ export default function SupplyTr({ index, supply }) {
     </tr>
   );
 }
+
+export default SupplyTr;

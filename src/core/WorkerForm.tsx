@@ -3,41 +3,54 @@ import { Form, Col, Row } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 import { validationWorkerForm } from "../helpers/functions";
+import { ValidationResponse } from "../Interfaces/Interfaces";
 
-export default function WorkerForm({ buttonRef }) {
-  const nameR = useRef<HTMLInputElement>();
-  const companyR = useRef<HTMLInputElement>();
-  const dateR = useRef<HTMLInputElement>();
-  const errorLabel = useRef<HTMLLabelElement>();
+interface Props {
+  buttonRef: React.RefObject<HTMLButtonElement>;
+}
+
+export default function WorkerForm({ buttonRef }: Props): JSX.Element {
+  const nameR = useRef<HTMLInputElement>(null);
+  const companyR = useRef<HTMLInputElement>(null);
+  const dateR = useRef<HTMLInputElement>(null);
+  const errorLabel = useRef<HTMLLabelElement>(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
-    buttonRef.current.addEventListener("click", onSubmitClick);
+    if (buttonRef.current) {
+      buttonRef.current.addEventListener("click", onSubmitClick);
+    }
   });
 
   const onSubmitClick = () => {
-    const response = validationWorkerForm(
-      nameR.current.value,
-      companyR.current.value,
-      dateR.current.value
-    );
-    if (response.valid) {
-      dispatch({
-        type: "SUBMIT_FORM",
-        payload: {
-          name: nameR.current.value,
-          company: companyR.current.value,
-          date: dateR.current.value,
-        },
-      });
-      navigate("/form");
-    } else {
-      errorLabel.current.innerText = response.message;
+    if (
+      nameR.current &&
+      companyR.current &&
+      dateR.current &&
+      errorLabel.current
+    ) {
+      const response: ValidationResponse = validationWorkerForm(
+        nameR.current.value,
+        companyR.current.value,
+        dateR.current.value
+      );
+      if (response.valid) {
+        dispatch({
+          type: "SUBMIT_FORM",
+          payload: {
+            name: nameR.current.value,
+            company: companyR.current.value,
+            date: dateR.current.value,
+          },
+        });
+        navigate("/form");
+      } else {
+        errorLabel.current.innerText = response.message ? response.message : "";
+      }
     }
   };
 
-  console.log(buttonRef);
   return (
     <Form className="workerForm">
       <div>

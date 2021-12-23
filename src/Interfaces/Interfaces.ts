@@ -1,35 +1,40 @@
 export interface SupplyItemInterface {
-  id: String;
+  id: string;
   currentAmount: number;
   fullAmount: number;
-  supplyName: String;
+  supplyName: string;
 }
 
 export interface ActionSupplyInterface {
-  type: String;
+  type: string;
   payload: {
     currentAmount: number;
     fullAmount?: number;
     supplyName?: any;
-    id?: String;
+    id?: string;
   };
 }
 
 export interface UserInterface {
-  name: String;
-  company: String;
-  date: String;
+  name: string;
+  company: string;
+  date: string;
 }
 
 export interface ActionUserInterface {
   users: any;
-  type: String;
+  type: string;
   payload: UserInterface;
 }
 
 export interface CombinedStateInterface {
   users: UserInterface;
   supply: SupplyItemInterface[];
+}
+
+export interface ValidationResponse {
+  valid: boolean;
+  message?: string;
 }
 
 // {

@@ -5,30 +5,47 @@ import { useDispatch } from "react-redux";
 import { validateSupplyItem } from "../helpers/functions";
 
 export default function AddItem() {
-  const supplyName = useRef<HTMLInputElement | undefined>();
-  const fullAmount = useRef<HTMLInputElement | undefined>();
-  const currentAmount = useRef<HTMLInputElement | undefined>();
-  const errorLabel = useRef<HTMLLabelElement | undefined>();
+  const supplyName = useRef<HTMLInputElement>(null);
+  const fullAmount = useRef<HTMLInputElement>(null);
+  const currentAmount = useRef<HTMLInputElement>(null);
+  const errorLabel = useRef<HTMLLabelElement>(null);
   const dispatch = useDispatch();
 
   const onAddClick = () => {
-    const response = validateSupplyItem(
-      supplyName.current.value,
-      fullAmount.current.value,
-      currentAmount.current.value
-    );
-    if (response.valid) {
-      errorLabel.current.innerText = "";
-      dispatch({
-        type: "ADD_SUPPLY_ITEM",
-        payload: {
-          supplyName: supplyName.current.value,
-          fullAmount: fullAmount.current.value,
-          currentAmount: currentAmount.current.value,
-        },
-      });
-    } else {
-      errorLabel.current.innerText = response.message;
+    if (
+      supplyName.current &&
+      fullAmount.current &&
+      currentAmount.current &&
+      errorLabel.current
+    ) {
+      let response;
+      try {
+        response = validateSupplyItem(
+          supplyName.current.value,
+          parseInt(fullAmount.current.value),
+          parseInt(currentAmount.current.value)
+        );
+      } catch (error) {
+        errorLabel.current.innerText =
+          "Full amount and current amount must be numbers!";
+      }
+      if (response !== undefined) {
+        if (response.valid) {
+          errorLabel.current.innerText = "";
+          dispatch({
+            type: "ADD_SUPPLY_ITEM",
+            payload: {
+              supplyName: supplyName.current.value,
+              fullAmount: fullAmount.current.value,
+              currentAmount: currentAmount.current.value,
+            },
+          });
+        } else {
+          errorLabel.current.innerText = response.message
+            ? response.message
+            : "";
+        }
+      }
     }
   };
 

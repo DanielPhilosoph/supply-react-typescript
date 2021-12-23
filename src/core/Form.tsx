@@ -25,7 +25,7 @@ export default function Form() {
         <Card.Text>Last report on: {usersState.date}</Card.Text>
         <br />
         <h5>Status:</h5>
-        {supplyState.map((supplyItem: SupplyItemInterface, i: Number) => {
+        {supplyState.map((supplyItem: SupplyItemInterface, i: number) => {
           return (
             <div key={`status${i}`} className="supplyStatusFormDiv">
               <span>Supply name: {supplyItem.supplyName}</span>
