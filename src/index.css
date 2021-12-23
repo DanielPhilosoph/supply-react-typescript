@@ -1,0 +1,60 @@
+.workerForm {
+  width: 60%;
+  margin: auto;
+  margin-top: 20px;
+}
+
+.supplyList {
+  width: 80%;
+  margin: auto;
+  margin-top: 40px;
+}
+
+.addItemForm {
+  width: 60%;
+  margin: auto;
+  margin-top: 40px;
+}
+
+.addItemColButton {
+  margin-top: 20px;
+}
+
+.submitButtonDiv {
+  width: 60%;
+  margin: auto;
+  margin-top: 40px;
+}
+
+.errorLabel {
+  color: red;
+  font-size: 13px;
+}
+
+.listInput {
+  border: 0.2px solid gray;
+  border-radius: 5px;
+  background: transparent;
+  width: 90%;
+}
+
+.link {
+  color: gray;
+  text-decoration: none;
+}
+.link:hover {
+  color: rgb(170, 170, 170);
+}
+
+.formCard {
+  width: 50%;
+  margin: auto;
+  margin-top: 30px;
+}
+
+.supplyStatusFormDiv {
+  margin-bottom: 10px;
+  border: 0.3px solid black;
+  border-radius: 7px;
+  padding: 10px;
+}
