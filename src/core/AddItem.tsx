@@ -5,10 +5,10 @@ import { useDispatch } from "react-redux";
 import { validateSupplyItem } from "../helpers/functions";
 
 export default function AddItem() {
-  const supplyName = useRef();
-  const fullAmount = useRef();
-  const currentAmount = useRef();
-  const errorLabel = useRef();
+  const supplyName = useRef<HTMLInputElement | undefined>();
+  const fullAmount = useRef<HTMLInputElement | undefined>();
+  const currentAmount = useRef<HTMLInputElement | undefined>();
+  const errorLabel = useRef<HTMLLabelElement | undefined>();
   const dispatch = useDispatch();
 
   const onAddClick = () => {

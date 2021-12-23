@@ -2,10 +2,11 @@ import React from "react";
 import { Table } from "react-bootstrap";
 
 import { useSelector } from "react-redux";
+import { CombinedStateInterface } from "../Interfaces/Interfaces";
 import SupplyTr from "./SupplyTr";
 
 export default function SupplyList() {
-  const state = useSelector((state) => state.supply);
+  const state = useSelector((state: CombinedStateInterface) => state.supply);
   console.log(state);
   return (
     <div className="supplyList">
